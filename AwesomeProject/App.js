@@ -1,44 +1,60 @@
 import React, { Component } from 'react';
-import { Text, View, Image } from 'react-native';
+import {
+  Alert,
+  Button,
+  Image,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View
+} from 'react-native';
 
-// playing around with the props and state of a Component
-class BlinkingText extends Component {
-  componentDidMount(){
-    setInterval(() => (
-      this.setState(previousState => (
-        { isShowingText: !previousState.isShowingText }
-      ))
-    ), 1000)
-  }
+import ColorButton from './components/ColorButton'
 
-  state = { isShowingText: true };
+export default class ColorList extends Component {
 
-  render() {
-    if (!this.state.isShowingText){
-      return null;
-    }
-
-    return(
-      <Text>Hello {this.props.name}!</Text>
-    );
-  }
-};
-
-export default class HelloWorldApp extends Component {
-  render() {
-    let pic = {
-      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
+  constructor() {
+    super();
+    this.state = {
+      backgroundColor: 'lightblue'
     };
+    //this.changeColor = this.changeColor.bind(this);
+  };
+
+  changeColor(backgroundColor) {
+    this.setState({
+      backgroundColor: backgroundColor
+    })
+  };
+
+  render() {
     return(
-// using in-line CSS to format the View, we could also import the StyleSheets object from react-native
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <BlinkingText name='world'/>
-        <Text>Hello galaxy!</Text>
-        <BlinkingText name='universe'/>
-    {/* the brackets around {pic} allow us to embed a JS expression in the JSX */}
-    {/* need to add props to Image for it to render */}
-        <Image source={pic} style={{width: 50, height: 50}}/>
-      </View>
-    );
+      <ScrollView style={[
+        styles.container,
+        {
+          backgroundColor: this.state.backgroundColor
+        }
+      ]}>
+
+        <ColorButton backgroundColor='red'
+        onSelect={(color) => this.changeColor(color)}/>
+        <ColorButton backgroundColor='green'
+        onSelect={(color) => this.changeColor(color)}/>
+        <ColorButton backgroundColor='salmon'
+        onSelect={(color) => this.changeColor(color)}/>
+        <ColorButton backgroundColor='#567876'
+        onSelect={(color) => this.changeColor(color)}/>
+
+      </ScrollView>
+    )
   }
-};
+}  ;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 20
+  }
+});
