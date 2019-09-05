@@ -24,7 +24,10 @@ export default class ColorList extends Component {
 
 // sending a title to the App Container which expects a JSON object called navigationOptions for things like the title of the view
   static navigationOptions = {
-    title: 'Available Colors'
+    title: 'Available Colors',
+    headerTitleStyle: {
+      fontWeight: 'bold'
+    }
   };
 
   constructor() {
@@ -96,6 +99,8 @@ export default class ColorList extends Component {
   }
 
   render() {
+    const {navigate} = this.props.navigation;
+    const {backgroundColor, dataSource} = this.state;
     return(
       <ListView style={[
         styles.container,
@@ -106,7 +111,7 @@ export default class ColorList extends Component {
       dataSource={this.state.dataSource}
       renderRow={(color) => (
         <ColorButton backgroundColor={color}
-        onSelect={this.props.onColorSelected}/>
+        onSelect={() => navigate('Details', {color})}/>
       )}
       renderHeader={() => (
         <ColorForm onNewColor={this.newColor}/>

@@ -16,12 +16,17 @@ import {
 // import ColorButton from './components/ColorButton'
 // import ColorForm from './components/ColorForm'
 import ColorList from './components/ColorList';
+import ColorInfo from './components/ColorInfo';
+
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 const ColorApp = createStackNavigator({
   Home: {
     screen: ColorList
+  },
+  Details: {
+    screen: ColorInfo
   }
 })
 
